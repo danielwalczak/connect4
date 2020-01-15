@@ -14,3 +14,15 @@ export function dropCoin(column: number, color: Color): DropCoinAction {
     payload: { column, color }
   };
 }
+
+export interface ResetGameAction {
+  type: "RESET_GAME";
+  payload: {};
+}
+
+export function resetGame(): ResetGameAction {
+  return {
+    type: "RESET_GAME",
+    payload: {}
+  };
+}

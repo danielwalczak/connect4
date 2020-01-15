@@ -4,14 +4,17 @@ import { connect } from "react-redux";
 import { RootState } from "../reducers";
 import { getBoard, getCurrentPlayer, getWinner } from "../reducers/selectors";
 import { Row } from "./Row";
-import { dropCoin } from "../actions/dropCoin";
+import { dropCoin, resetGame } from "../actions/dropCoin";
 import { Color } from "../types";
+
+import "./styles.css";
 
 interface Props {
   board: ReturnType<typeof getBoard>;
   color: ReturnType<typeof getCurrentPlayer>;
   winner: ReturnType<typeof getWinner>;
   dropCoin: typeof dropCoin;
+  resetGame: typeof resetGame;
 }
 
 export class BoardComponent extends React.Component<Props> {
@@ -44,6 +47,7 @@ export class BoardComponent extends React.Component<Props> {
   };
 
   render() {
+    const { resetGame, winner } = this.props;
     const classes = cn("Game-Board");
 
     return (
@@ -53,6 +57,10 @@ export class BoardComponent extends React.Component<Props> {
         <div className="Game">
           <div className={classes}>{this.props.board.map(this.displayRow)}</div>
         </div>
+
+        <button onClick={resetGame} className="resetButton">
+          {winner ? "play again" : "start over"}
+        </button>
       </>
     );
   }
@@ -64,4 +72,4 @@ const mapState = (state: RootState) => ({
   winner: getWinner(state)
 });
 
-export const Board = connect(mapState, { dropCoin })(BoardComponent);
+export const Board = connect(mapState, { dropCoin, resetGame })(BoardComponent);

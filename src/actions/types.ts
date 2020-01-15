@@ -1,3 +1,3 @@
-import { DropCoinAction } from "./dropCoin";
+import { DropCoinAction, ResetGameAction } from "./dropCoin";
 
-export type Action = DropCoinAction;
+export type Action = DropCoinAction|ResetGameAction;
